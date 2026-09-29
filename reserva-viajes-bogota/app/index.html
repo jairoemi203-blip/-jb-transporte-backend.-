@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>JB Transporte - Bogotá</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#F2A93B">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">JB</div>
+      <div>
+        <h1>JB Transporte</h1>
+        <p>Bogotá D.C. · Viajes con reserva</p>
+      </div>
+    </header>
+
+    <div class="card">
+      <div class="row2">
+        <div>
+          <label for="fecha">Día</label>
+          <input type="date" id="fecha">
+        </div>
+        <div>
+          <label for="hora">Hora</label>
+          <input type="time" id="hora" value="08:00">
+        </div>
+      </div>
+      <div id="disp" class="neutro">Elegí día y hora</div>
+
+      <label for="origen">Origen</label>
+      <select id="origen"></select>
+      <label for="destino">Destino</label>
+      <select id="destino"></select>
+    </div>
+
+    <div class="card precio">
+      <div>
+        <p>Precio estimado</p>
+        <p id="precio">$0</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Tus datos</label>
+      <input type="text" id="nombre" placeholder="Nombre completo">
+      <input type="tel" id="telefono" placeholder="Celular (para confirmarte)">
+    </div>
+
+    <div class="card">
+      <label>Medio de pago</label>
+      <div class="pagos">
+        <button type="button" class="pago-btn" data-pago="Efectivo">Efectivo</button>
+        <button type="button" class="pago-btn" data-pago="Tarjeta">Tarjeta</button>
+        <button type="button" class="pago-btn" data-pago="Nequi">Nequi</button>
+        <button type="button" class="pago-btn" data-pago="Daviplata">Daviplata</button>
+      </div>
+    </div>
+
+    <div id="error"></div>
+    <button id="confirmar">Confirmar reserva</button>
+
+    <div id="confirmacion"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

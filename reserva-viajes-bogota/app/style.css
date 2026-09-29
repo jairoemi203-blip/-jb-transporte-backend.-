@@ -1,0 +1,58 @@
+:root {
+  --bg: #0F1B2D;
+  --surface: #16233A;
+  --surface-2: #1E2E48;
+  --border: #2B3B58;
+  --amber: #F2A93B;
+  --teal: #2FBF9F;
+  --danger: #E5626B;
+  --text: #F5F6F0;
+  --text-muted: #9BAAC4;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 60px;
+}
+.app { width: 100%; max-width: 400px; }
+header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.logo {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--amber); display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: var(--bg);
+}
+header h1 { font-size: 16px; margin: 0; }
+header p { font-size: 12px; color: var(--text-muted); margin: 2px 0 0; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+label { font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px; }
+select, input {
+  width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 12px; color: var(--text); font-size: 14px; margin-bottom: 12px;
+}
+select:last-child, input:last-child { margin-bottom: 0; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#disp { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; }
+#disp.libre { background: rgba(47,191,159,0.15); color: var(--teal); }
+#disp.ocupado { background: rgba(229,98,107,0.15); color: var(--danger); }
+#disp.neutro { background: var(--surface-2); color: var(--text-muted); }
+.precio { display: flex; justify-content: space-between; align-items: center; }
+.precio p:first-child { font-size: 12px; color: var(--text-muted); margin: 0 0 4px; }
+.precio p:last-child { font-size: 22px; font-weight: 600; margin: 0; }
+.pagos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pago-btn { background: transparent; border: 1px solid var(--border); border-radius: 10px; padding: 10px; color: var(--text); font-size: 13px; cursor: pointer; }
+.pago-btn.activo { border-color: var(--amber); background: rgba(242,169,59,0.12); }
+button#confirmar {
+  width: 100%; background: var(--amber); color: #1a1206; border: none; border-radius: 12px;
+  padding: 14px; font-size: 15px; font-weight: 600; cursor: pointer;
+}
+button#confirmar:disabled { opacity: 0.5; cursor: not-allowed; }
+#error { color: var(--danger); font-size: 13px; margin-bottom: 10px; display: none; }
+#confirmacion {
+  display: none; background: rgba(47,191,159,0.12); border: 1px solid var(--teal); color: var(--teal);
+  border-radius: 12px; padding: 14px; margin-top: 14px; font-size: 13px;
+}
