@@ -3,6 +3,7 @@ const router = express.Router();
 const { load, save } = require('../db');
 const { chequearDisponibilidad } = require('../disponibilidad');
 const { notificarNuevaReserva } = require('../notificaciones');
+const { requireAdminKey } = require('../middleware');
 
 const ZONAS_VALIDAS = ['Chapinero', 'Usaquén', 'Zona Rosa', 'Centro', 'Suba', 'Aeropuerto El Dorado', 'Modelia', 'Kennedy', 'Embajada EE.UU.'];
 const MEDIOS_PAGO_VALIDOS = ['Efectivo', 'Tarjeta', 'Nequi', 'Daviplata'];
@@ -16,7 +17,7 @@ router.get('/disponibilidad', (req, res) => {
   res.json(resultado);
 });
 
-router.get('/reservas', (req, res) => {
+router.get('/reservas', requireAdminKey, (req, res) => {
   const { fecha } = req.query;
   const data = load();
   const reservas = fecha
@@ -26,7 +27,7 @@ router.get('/reservas', (req, res) => {
 });
 
 router.post('/reservas', async (req, res) => {
-  const { fecha, hora, origen, destino, precio, medioPago, clienteNombre, clienteTelefono } = req.body;
+  const { fecha, hora, origen, destino, direccionOrigen, direccionDestino, precio, medioPago, clienteNombre, clienteTelefono } = req.body;
 
   if (!fecha || !hora || !origen || !destino || !precio || !medioPago || !clienteNombre || !clienteTelefono) {
     return res.status(400).json({ error: 'Faltan campos obligatorios en la reserva.' });
@@ -53,6 +54,8 @@ router.post('/reservas', async (req, res) => {
     hora,
     origen,
     destino,
+    direccionOrigen: direccionOrigen || '',
+    direccionDestino: direccionDestino || '',
     precio: Number(precio),
     medioPago,
     clienteNombre,
@@ -68,7 +71,7 @@ router.post('/reservas', async (req, res) => {
   res.status(201).json(nuevaReserva);
 });
 
-router.put('/reservas/:id/cancelar', (req, res) => {
+router.put('/reservas/:id/cancelar', requireAdminKey, (req, res) => {
   const data = load();
   const reserva = data.reservas.find((r) => r.id === req.params.id);
   if (!reserva) {
