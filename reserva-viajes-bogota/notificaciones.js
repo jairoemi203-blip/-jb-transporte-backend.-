@@ -6,7 +6,8 @@ const {
   SMTP_USER,
   SMTP_PASS,
   EMAIL_CONDUCTOR,
-  WEBHOOK_WHATSAPP_URL
+  WHATSAPP_PHONE,
+  WHATSAPP_APIKEY
 } = process.env;
 
 let transporter = null;
@@ -44,16 +45,19 @@ async function notificarNuevaReserva(reserva) {
     }
   }
 
-  if (WEBHOOK_WHATSAPP_URL) {
+  if (WHATSAPP_PHONE && WHATSAPP_APIKEY) {
     try {
-      await fetch(WEBHOOK_WHATSAPP_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mensaje: texto })
-      });
+      const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(WHATSAPP_PHONE)}&text=${encodeURIComponent(texto)}&apikey=${encodeURIComponent(WHATSAPP_APIKEY)}`;
+      console.log('--- Llamando a CallMeBot ---');
+      const resp = await fetch(url);
+      const body = await resp.text();
+      console.log('CallMeBot respondió, status:', resp.status);
+      console.log('CallMeBot respondió, body:', body);
     } catch (err) {
       console.error('No se pudo enviar la notificación por WhatsApp:', err.message);
     }
+  } else {
+    console.log('WhatsApp no configurado: falta WHATSAPP_PHONE o WHATSAPP_APIKEY');
   }
 }
 
